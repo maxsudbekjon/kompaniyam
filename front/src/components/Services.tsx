@@ -25,10 +25,11 @@ export const Services = () => {
 
   const { getService } = useService();
   const { data: services } = getService();
+  console.log(services);
 
 
 
-    const handleLanguageTitle = ({ title_ru, title_uz, title_en}: { title_ru: string, title_uz: string, title_en: string }) => {
+  const handleLanguageTitle = ({ title_ru, title_uz, title_en}: { title_ru: string, title_uz: string, title_en: string }) => {
     switch (language) {
       case 'ru':
         return title_ru;
@@ -102,7 +103,7 @@ export const Services = () => {
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.5 }}
                 >
-                  <img src={service.icon}  />
+                  <img src={`http://127.0.0.1:8000${service.icon}`}  />
                 </motion.div>
                 <h3 className="mb-4" style={{ fontWeight: 500, fontSize: '1.25rem' }}>{handleLanguageTitle({title_ru: service.title_ru, title_uz: service.title_uz, title_en: service.title_en})}</h3>
                 <p className="text-gray-600 leading-relaxed" style={{ fontWeight: 300 }}>{handleLanguageDescription({description_ru: service.description_ru, description_uz: service.description_uz, description_en: service.description_en})}</p>

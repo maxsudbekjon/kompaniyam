@@ -8,7 +8,6 @@ import useAbout from '../api/hooks/useAbout';
 
 type AboutDataType = {
   id: number
-  icon: string
   title_ru: string
   title_uz: string
   title_en: string

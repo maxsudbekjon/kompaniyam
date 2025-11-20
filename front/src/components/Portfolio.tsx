@@ -95,7 +95,7 @@ export const Portfolio = () => {
               <div className="relative overflow-hidden rounded-3xl bg-white border border-gray-100 hover:border-gray-200 hover:shadow-2xl transition-all duration-500">
                 <div className="relative overflow-hidden aspect-[4/3]">
                   <ImageWithFallback
-                    src={project.image}
+                    src={`http://127.0.0.1:8000${project.image}`}
                     alt={handleLanguageTitle({ title_ru: project.title_ru, title_uz: project.title_uz, title_en: project.title_en })}
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                   />
