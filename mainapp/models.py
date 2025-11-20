@@ -1,10 +1,11 @@
 from django.db import models
 
 class AnalyticsModel(models.Model):
-  numData = models.SmallIntegerField()
-  statusData_ru = models.CharField(max_length=100)
-  statusData_en = models.CharField(max_length=100)
-  statusData_uz = models.CharField(max_length=100)
+  value = models.SmallIntegerField()
+  suffix = models.CharField(max_length=2)
+  label_ru = models.CharField(max_length=100)
+  label_en = models.CharField(max_length=100)
+  label_uz = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,7 +41,7 @@ class PortfolieProjectsModel(models.Model):
   field_uz = models.CharField(max_length=100)  
   title_ru = models.CharField(max_length=200)
   title_en = models.CharField(max_length=200)
-  title_uz = models.CharField(max_length=200)
+  title_uz = models.  CharField(max_length=200)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
@@ -51,9 +52,15 @@ class CommentModel(models.Model):
   position_ru = models.CharField(max_length=100, blank=True, null=True)
   position_en = models.CharField(max_length=100, blank=True, null=True)
   position_uz = models.CharField(max_length=100, blank=True, null=True)
-  comment_ru = models.TextField() 
-  comment_en = models.TextField()
-  comment_uz = models.TextField()
+  comment = models.TextField() 
   stars = models.SmallIntegerField()
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+
+class ProjectSuggestionModel(models.Model):
+  name = models.CharField(max_length=200)
+  email = models.EmailField()
+  message = models.TextField()
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

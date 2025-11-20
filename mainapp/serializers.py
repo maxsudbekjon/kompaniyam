@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AnalyticsModel, AboutDataModel, ServiceModel, PortfolieProjectsModel, CommentModel
+from .models import AnalyticsModel, AboutDataModel, ServiceModel, PortfolieProjectsModel, CommentModel, ProjectSuggestionModel
 
 class AnalyticsModelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +24,10 @@ class PortfolieProjectsModelSerializer(serializers.ModelSerializer):
 class CommentModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentModel
+        fields = '__all__'
+
+
+class ProjectSuggestionModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectSuggestionModel
         fields = '__all__'
