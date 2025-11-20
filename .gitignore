@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / compiled files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg
+*.egg-info/
+.coverage
+.tox/
+.mypy_cache/
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+# Database files
+*.sqlite3
+# Django migration files
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Media files
+media/
+
+# Static files (if collected locally for development)
+staticfiles/
+
+# Logs
+*.log
+*.pot
+
+# Local settings (should not be committed)
+local_settings.py
+
+# IDE-specific files (e.g., PyCharm)
+.idea/
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Test reports
+htmlcov/
+.pytest_cache/
+
+# Django migrations (optional, see notes below)
+# Note: Generally, migrations should be committed to maintain schema history.
+# However, if you have a specific workflow where you manage them differently,
+# you might consider ignoring them.
+# */migrations/
