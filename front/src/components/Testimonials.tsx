@@ -1,9 +1,10 @@
 import { motion } from 'motion/react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useInView } from 'motion/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Quote, Star } from 'lucide-react';
 import useComments from '../api/hooks/useComments';
+import { StarRating } from './StarRaring';
 
 type CommentType = {
   id: number
@@ -18,7 +19,24 @@ type CommentType = {
   updated_at: string
 }
 
+export type CommentTypeSecond = {
+  full_name: string
+  company: string
+  position: string
+  comment: string
+  stars: number
+}
+
 export const Testimonials = () => {
+  const [open, setOpen] = useState<boolean>(false);
+    const [comment, setComment] = useState<CommentTypeSecond>({
+    full_name: "",
+    company: "",
+    position: "",
+    comment: "",
+    stars: 0,
+  })
+  
   const { t, language } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-50px", amount: 0.3 });
@@ -38,6 +56,27 @@ export const Testimonials = () => {
         return position_en;
     }
   }
+
+  const toggle = () => {
+    setOpen(!open)
+  };
+
+
+  const { postCommentsSecond } = useComments()
+  const { mutate } = postCommentsSecond()
+  
+  
+  const handleRatingChange = (rating: number) => {
+    setComment(prev => ({ ...prev, stars: rating }));
+    console.log("New rating:", rating); // or do anything else with it
+  };
+  
+  
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    console.log(comment)
+    mutate(comment)
+  } 
 
   return (
     <section id="testimonials" className="py-32 bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden" ref={ref}>
@@ -150,6 +189,53 @@ export const Testimonials = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+        <div className='w-full flex justify-center mt-[40px]'>
+          <button className='px-[25px] border border-[#ffffff4b] bg-[#ffffff1a] rounded-[15px] py-[10px] hover:bg-[#ffffff40] duration-300' onClick={() => {toggle()}} >+ Leave a Reviews</button>
+        </div>
+        <div>
+          {
+            open?
+              <div className="bg-[#0000004f] fixed h-full w-full top-0 left-0 z-1000000000 flex items-center justify-center">
+                <div className="max-h-[650px] h-full bg-white max-w-[500px] w-full rounded-[10px] ">
+                  <button className='float-right p-[5px]  mr-[10px] mt-[10px] text-[24px] hover:text-black duration-300 text-gray-500' onClick={() => toggle()}>&times;</button>
+                  <p className="text-3xl mt-10 ml-5 text-black">Share Your Project Experience</p>
+                  <hr className='border-gray-100 mt-[10px]'  />
+                  <div className='mt-[20px]'>
+                    <form className='px-5 flex flex-col gap-4'>
+                      <div className='flex flex-col gap-2'>
+                        <label className='text-gray-700' htmlFor="name">Your name</label>
+                        <input onChange={(e) => {setComment(prev => ({ ...prev, full_name: e.target.value}))}} className='bg-gray-100 text-black focus:shadow-md duration-300 border p-2.5 border-gray-200 focus:outline-none rounded-[15px] h-[35px]' type="text" id='name' />
+                      </div>
+                        <div className='flex flex-col gap-2'>
+                        <label className='text-gray-700' htmlFor="company">Company</label>
+                        <input onChange={(e) => {setComment(prev => ({ ...prev, company: e.target.value}))}} className='bg-gray-100 text-black focus:shadow-md duration-300 border p-2.5 border-gray-200 focus:outline-none rounded-[15px] h-[35px]' type="text" id='position' />
+                      </div>
+                      <div className='flex flex-col gap-2'>
+                        <label className='text-gray-700' htmlFor="position">Position</label>
+                        <input onChange={(e) => {setComment(prev => ({ ...prev, position: e.target.value}))}} className='bg-gray-100 text-black border focus:shadow-md duration-300 p-2.5 border-gray-200 focus:outline-none rounded-[15px] h-[35px]' type="text" id='company' />
+                      </div>
+                      <div>
+                        <p className='text-gray-700'>Rating</p>
+                        <StarRating 
+                        onRatingChange={handleRatingChange}
+                          />
+                      </div>
+                      <div className='flex flex-col gap-2'>
+                        <label className='text-gray-700' htmlFor="testimonial">Your testimonial</label>
+                        <textarea onChange={(e) => {setComment(prev => ({...prev, comment: e.target.value}))}} className='border text-black resize-none focus:shadow-md duration-300 border-gray-200 focus:outline-none rounded-[15px] bg-gray-100 px-[10px]' id="testimonial"></textarea>
+                      </div>
+                      <div className='flex gap-2 flex-wrap mt-[20px]' >
+                        <button onClick={() => toggle()} className='w-[49%] text-black h-[35px] border hover:border-gray-500 duration-300 hover:bg-gray-50 border-gray-300 rounded-[15px]' >Cancel</button>
+                        <button onClick={(e) => handleSubmit(e)} className='w-[49%] h-[35px] hover:bg-[#171717] duration-300 bg-black rounded-[15px] text-white' type="submit">Submit</button>
+                      </div>
+                    </form>
+                  </div>                      
+
+                </div>
+              </div>
+            : null
+          }
         </div>
       </div>
     </section>

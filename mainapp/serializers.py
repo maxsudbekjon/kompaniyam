@@ -21,11 +21,17 @@ class PortfolieProjectsModelSerializer(serializers.ModelSerializer):
         model = PortfolieProjectsModel
         fields = '__all__'
 
+
 class CommentModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentModel
-        fields = '__all__'
+        fields = ["full_name", "company", "position", "comment", "stars"]
 
+
+class CommentModelWithProjectSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = CommentModel
+        fields = '__all__'
 
 class ProjectSuggestionModelSerializer(serializers.ModelSerializer):
     class Meta:

@@ -49,13 +49,12 @@ class PortfolieProjectsModel(models.Model):
 class CommentModel(models.Model): 
   full_name = models.CharField(max_length=200)
   company = models.CharField(max_length=200, blank=True, null=True)
-  position_ru = models.CharField(max_length=100, blank=True, null=True)
-  position_en = models.CharField(max_length=100, blank=True, null=True)
-  position_uz = models.CharField(max_length=100, blank=True, null=True)
+  position = models.CharField(max_length=100, blank=True, null=True)
   comment = models.TextField() 
   stars = models.SmallIntegerField()
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+  project = models.ForeignKey(PortfolieProjectsModel, on_delete=models.CASCADE, blank=True, null=True)  
 
 
 class ProjectSuggestionModel(models.Model):

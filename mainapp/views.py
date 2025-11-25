@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import AnalyticsModel, AboutDataModel, ServiceModel, PortfolieProjectsModel, CommentModel
-from .serializers import AnalyticsModelSerializer, AboutDataModelSerializer, ProjectSuggestionModelSerializer, ServiceModelSerializer, PortfolieProjectsModelSerializer, CommentModelSerializer
+from .serializers import AnalyticsModelSerializer, AboutDataModelSerializer, ProjectSuggestionModelSerializer, ServiceModelSerializer, PortfolieProjectsModelSerializer, CommentModelSerializer, CommentModelWithProjectSerializer
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
@@ -54,3 +54,13 @@ class ProjectSuggestionView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class CommentViewWithProject(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = CommentModelWithProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
